@@ -26,32 +26,43 @@ int main(){
             s[b-1] = i;
         }
         vector<int>::iterator it;
-        //vector<int>::iterator is;
+        vector<int>::iterator is;
         //    for (it=s.begin(); it!=s.end(); it++) {
         //        cout<<*it<<" ";
         //    }
         //    cout<<endl;
-        while (!s.empty()) {
-            int num = s.size();
-            //cout<<num<<endl;
-            for (it=s.begin(); it!=s.end()-1; it++) {
-                if (*it==*(it+1)) {
-                    s.erase(it);
-                    s.erase(it);
-                    it--;
+        int num;
+        it = s.begin();
+        while (!s.empty() && it!=s.end()) {
+            num = s.size();
+            if (it==s.end()-1) {
+                if (*s.begin()==*(s.end()-1)) {
+                    s.pop_back();
+                    s.erase(s.begin());
+                    it = s.begin();
                 }
-                if (it==s.end()-1) {
+                else if (num==s.size())
+                    break;
+                else
+                    it = s.begin();
+            }
+            
+            if (*it==*(it+1)) {
+                s.erase(it);
+                s.erase(it);
+            }
+            else
+                it++;
+            
+            if (it==s.end()) {
+                if (num==s.size()) {
                     break;
                 }
+                else
+                    it = s.begin();
             }
-            if (!s.empty()&&(*s.begin()==*(s.end()-1))) {
-                s.pop_back();
-                s.erase(s.begin());
-            }
-            if (num==s.size()) {
-                //cout<<s.size();
-                break;
-            }
+            
+            
         }
         //    for (it=s.begin(); it!=s.end(); it++) {
         //        cout<<*it<<" ";
@@ -62,7 +73,7 @@ int main(){
         }
         else
             cout<<"No"<<endl;
-        
+        s.clear();
         cin>>N;
     }
     return 0;
